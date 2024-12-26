@@ -1,0 +1,81 @@
+{
+    "apiId": 0,
+    "commonName": "",
+    "isSpeciesOrVariety": "",
+    "scientificName": "",
+    "otherNames": [
+        ""
+    ],
+    "description": "",
+    "growthRate": 0,
+    "maintenanceLevel": 0,
+    "growingCycle": "",
+    "averageHeight": {
+        "value": "",
+        "unit": ""
+    },
+    "averageSpread": {
+        "value": "",
+        "unit": ""
+    },
+    "plantSpacing": {
+        "value": "",
+        "unit": ""
+    },
+    "seedGerminationTime": {
+        "time": "",
+        "unit": ""
+    },
+    "maturityTime": {
+        "time": "",
+        "unit": ""
+    },
+    "hardinessZones": {
+        "minHardiness": 0,
+        "maxHardiness": 0
+    },
+    "plantingSeason": "",
+    "plantingMonths": [
+        ""
+    ],
+    "floweringSeason": "",
+    "floweringMonths": [
+        ""
+    ],
+    "harvestSeason": "",
+    "harvestMonths": [
+        ""
+    ],
+    "preferredSunlight": [
+        ""
+    ],
+    "preferredSoil": [
+        ""
+    ],
+    "soilPh": "",
+    "sowingGuide": "",
+    "wateringGuide": "",
+    "pruningGuide":  "",
+    "harvestingGuide": "",
+    "images": [
+        {
+            "url": "",
+            "originalUrl": "",
+            "credit": "",
+            "imageLicense": ""
+        }
+    ],
+    "isPoisonousToHumans": false,
+    "isPoisonousToPets": false,
+    "isMedicinal": false,
+    "isIndoorFriendly": false,
+    "isContainerFriendly": false,
+    "hasFlowers": false,
+    "hasSeeds": false,
+    "isSaltTolerant": false,
+    "isHeatTolerant": false,
+    "isFrostTolerant": false,
+    "fruitIsEdible": false,
+    "seedsAreEdible": false,
+    "leavesAreEdible": false
+}
