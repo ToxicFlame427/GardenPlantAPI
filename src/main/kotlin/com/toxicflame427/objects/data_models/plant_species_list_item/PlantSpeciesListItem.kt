@@ -6,9 +6,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PlantSpeciesListItem(
     val apiId: Int,
-    val commonName: String,
-    val otherNames: List<String>,
-    val scientificName: String,
+    val name: String,
     val growingCycle: String,
-    val images: List<Image>
+    val images: List<Image>,
+    val speciesOrVariety: String,
+    val otherNames: List<String>,
+    val scientificName: String
 )

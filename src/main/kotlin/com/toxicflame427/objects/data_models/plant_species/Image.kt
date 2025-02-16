@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Image(
     val credit: String,
-    val description: String,
     val imageLicense: String,
     val originalUrl: String,
     val url: String

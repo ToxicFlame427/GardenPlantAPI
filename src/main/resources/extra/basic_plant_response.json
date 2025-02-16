@@ -1,7 +1,7 @@
 {
     "apiId": 0,
-    "commonName": "",
-    "isSpeciesOrVariety": "",
+    "name": "",
+    "speciesOrVariety": "",
     "scientificName": "",
     "otherNames": [
         ""
@@ -65,16 +65,17 @@
             "imageLicense": ""
         }
     ],
-    "isPoisonousToHumans": false,
-    "isPoisonousToPets": false,
-    "isMedicinal": false,
-    "isIndoorFriendly": false,
-    "isContainerFriendly": false,
+    "poisonousToHumans": false,
+    "poisonousToPets": false,
+    "medicinal": false,
+    "indoorFriendly": false,
+    "containerFriendly": false,
     "hasFlowers": false,
     "hasSeeds": false,
-    "isSaltTolerant": false,
-    "isHeatTolerant": false,
-    "isFrostTolerant": false,
+    "hasCorms": false,
+    "saltTolerant": false,
+    "heatTolerant": false,
+    "frostTolerant": false,
     "fruitIsEdible": false,
     "seedsAreEdible": false,
     "leavesAreEdible": false
