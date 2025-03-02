@@ -47,5 +47,6 @@ data class PlantSpeciesDetails(
     val seedsAreEdible: Boolean,
     val soilPh: String,
     val sowingGuide: String,
-    val wateringGuide: String
+    val wateringGuide: String,
+    val patentStatus: String
 )

@@ -7,6 +7,7 @@ data class PlantListResponseData(
     var data : List<PlantSpeciesListItem?>?,
     var itemCount : Int?,
     var page : Int?,
+    var pages: Int?,
     var status : String,
     var message : String
 )

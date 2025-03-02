@@ -6,8 +6,10 @@ import com.toxicflame427.objects.data_models.plant_species_list_item.PlantSpecie
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 import com.mongodb.client.model.Filters.*
+import com.toxicflame427.objects.data_models.PlantListResult
 import com.toxicflame427.objects.data_models.SDKKeys
 import io.ktor.util.logging.*
+import kotlin.math.ceil
 
 private val client = KMongo.createClient().coroutine
 
@@ -48,7 +50,7 @@ suspend fun getPlantById(id: Int): PlantSpeciesDetails?{
     return plants.find(eq(PlantSpeciesDetails::apiId.name, id)).first()
 }
 
-suspend fun getListOfPlants(limit: Int, page: Int, filterQuery: String?, searchQuery: String?): List<PlantSpeciesListItem?> {
+suspend fun getListOfPlants(limit: Int, page: Int, filterQuery: String?, searchQuery: String?): PlantListResult {
     val skip = (page - 1) * limit
 
     // Build the filter based on filterQuery
@@ -75,7 +77,23 @@ suspend fun getListOfPlants(limit: Int, page: Int, filterQuery: String?, searchQ
         filter
     }
 
-    return plants.find(combinedFilter)
+    // This one gets the full unlimited list; Used of total page calulations
+    val aggregateList = plants.find(combinedFilter)
+        .toList() // Directly map to a list of PlantSpeciesListItem
+        .map {
+            PlantSpeciesListItem(
+                apiId = it.apiId,
+                name = it.name,
+                otherNames = it.otherNames,
+                scientificName = it.scientificName,
+                growingCycle = it.growingCycle,
+                speciesOrVariety = it.speciesOrVariety,
+                images = it.images
+            )
+        }
+
+    // Thi is the limited list that is returned to the user
+    val aggregateLimitList = plants.find(combinedFilter)
         .skip(skip)
         .limit(limit)
         .toList() // Directly map to a list of PlantSpeciesListItem
@@ -90,6 +108,12 @@ suspend fun getListOfPlants(limit: Int, page: Int, filterQuery: String?, searchQ
                 images = it.images
             )
         }
+
+    // I have no clue why I have to add 1 for this to work, but it works with this :)
+    val totalCount = ceil((aggregateList.size / limit).toDouble()) + 1;
+
+    // It should be ok to convert this number to an int, as it cannot have floating point results after a ceiling round
+    return PlantListResult(aggregateLimitList, totalCount.toInt());
 }
 
 suspend fun createOrUpdatePlant(plant: PlantSpeciesDetails): Boolean{

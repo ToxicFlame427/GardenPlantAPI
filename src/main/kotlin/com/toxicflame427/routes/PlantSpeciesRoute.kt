@@ -3,6 +3,7 @@
 package com.toxicflame427.routes
 
 import com.toxicflame427.objects.*
+import com.toxicflame427.objects.data_models.PlantListResult
 import com.toxicflame427.objects.data_models.plant_species.PlantSpeciesDetails
 import com.toxicflame427.objects.data_models.plant_species.PlantSpeciesResponseData
 import com.toxicflame427.objects.data_models.plant_species_list_item.PlantListResponseData
@@ -69,6 +70,8 @@ fun Route.plantSpeciesData(){
     }
 
     route("/plant-species-list"){
+        var totalPages =
+
         get {
             val limit = call.parameters["limit"]?.toIntOrNull() ?: 10 // Default to 10
             val page = call.parameters["page"]?.toIntOrNull() ?: 1 // Default to 1
@@ -78,23 +81,24 @@ fun Route.plantSpeciesData(){
             val filterQuery = call.parameters["fq"]
             val searchQuery = call.parameters["sq"]
 
-            val plantList: List<PlantSpeciesListItem?>
+            val initialResult: PlantListResult
 
             if(checkSDKKey(key)) {
                 // Check to determine response type
                 if (limit >= 1 && page >= 1) {
                     // If data is provided, respond to API call accordingly
-                    plantList = getListOfPlants(limit, page, filterQuery, searchQuery)
+                    initialResult = getListOfPlants(limit, page, filterQuery, searchQuery)
 
-                    plantList.let {
+                    initialResult.let {
                         call.respond(
                             HttpStatusCode.OK,
                             PlantListResponseData(
-                                data = plantList,
+                                data = initialResult.plants,
                                 itemCount = limit,
                                 page = page,
+                                pages = initialResult.totalCount,
                                 status = "Completed",
-                                message = "Completed with $limit items on page $page "
+                                message = "Completed with $limit items on page $page"
                             )
                         )
                     }
@@ -105,6 +109,7 @@ fun Route.plantSpeciesData(){
                             data = null,
                             itemCount = 0,
                             page = 0,
+                            pages = 0,
                             status = "Incomplete",
                             message = "Limit and page values must be larger than 0"
                         )
@@ -116,7 +121,8 @@ fun Route.plantSpeciesData(){
                     PlantListResponseData(
                         data = null,
                         itemCount = 0,
-                        page = 1,
+                        page = 0,
+                        pages = 0,
                         status = "Completed - No data",
                         message = "SDK Key is invalid"
                     )
