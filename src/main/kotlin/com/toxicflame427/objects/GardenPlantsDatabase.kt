@@ -7,6 +7,7 @@ import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 import com.mongodb.client.model.Filters.*
 import com.toxicflame427.objects.data_models.PlantListResult
+import com.toxicflame427.objects.data_models.PlantRequestModel
 import com.toxicflame427.objects.data_models.SDKKeys
 import io.ktor.util.logging.*
 import kotlin.math.ceil
@@ -19,6 +20,7 @@ private val database = client.getDatabase("GardenPlantsDatabase")
 // Collections
 private val sdkKeys = database.getCollection<SDKKeys>()
 private val plants = database.getCollection<PlantSpeciesDetails>()
+private val requests = database.getCollection<PlantRequestModel>()
 
 suspend fun checkSDKKey(key: String?) : Boolean {
     // If there is no key, then reject access
@@ -118,10 +120,22 @@ suspend fun getListOfPlants(limit: Int, page: Int, filterQuery: String?, searchQ
 
 suspend fun createOrUpdatePlant(plant: PlantSpeciesDetails): Boolean{
     val filter = eq("apiId", plant.apiId)
-    print(plant) // Find out if the field is actually correct here, and it is!
+    //print(plant) // Find out if the field is actually correct here, and it is!
     val result = plants.replaceOne(
         filter,
         plant,
+        ReplaceOptions().upsert(true)
+    )
+
+    return result.wasAcknowledged()
+}
+
+suspend fun addPlantRequest(requestBody: PlantRequestModel): Boolean{
+    val filter = eq("id", requestBody.id)
+    //print(plant) // Find out if the field is actually correct here, and it is!
+    val result = requests.replaceOne(
+        filter,
+        requestBody,
         ReplaceOptions().upsert(true)
     )
 

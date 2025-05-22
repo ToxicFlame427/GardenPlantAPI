@@ -61,9 +61,11 @@
     "images": [
         {
             "url": "",
+            "smallUrl": "",
             "originalUrl": "",
             "credit": "",
-            "imageLicense": ""
+            "imageLicense": "",
+            "licenseCode": ""
         }
     ],
     "poisonousToHumans": false,

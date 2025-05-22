@@ -10,9 +10,11 @@
   "images": [
     {
       "url": "",
+      "smallUrl": "",
       "originalUrl": "",
       "credit": "",
-      "imageLicense": ""
+      "imageLicense": "",
+      "licenseCode": ""
     }
   ]
 }
