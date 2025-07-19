@@ -29,12 +29,11 @@ fun Application.configureRouting() {
             )
         }
 
-        // URL consists of... somehow still accessible after server shutdown? Local cache maybe
         // https://gardenplantsapi.online/resources/{plant_folder}/{image}.jpg
         //staticResources("resources", "images")
-        staticFiles("/resources", File("E:/GardenAPIResources/images")) {
+        staticFiles("/resources", File("F:/GardenAPIResources/images")) {
             enableAutoHeadResponse()
-            // NO CACHE! This is what causes the images to not change!
+            // NO CACHE! This is what causes the images to not change! (And being accessable even when the API is not running)
             cacheControl { file ->
                 listOf(CacheControl.MaxAge(maxAgeSeconds = 360))
             }
